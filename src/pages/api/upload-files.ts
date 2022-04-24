@@ -21,19 +21,21 @@ const upload = multer({
 
 const apiRoute = nextConnect({
   onError(error, req, res) {
-    res
+    (res as any)
       .status(500)
       .json({ error: `Sorry something Happened! ${error.message}` });
   },
   onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+    (res as any)
+      .status(405)
+      .json({ error: `Method '${req.method}' Not Allowed` });
   },
 });
 
 apiRoute.use(upload.single("file"));
 
 apiRoute.post((req, res) => {
-  res.status(200).json({ data: "success" });
+  (res as any).status(200).json({ data: "success" });
 });
 
 export default apiRoute;
