@@ -4,7 +4,13 @@ import nextConnect from "next-connect";
 
 const multerS3 = require("multer-s3");
 
-const s3 = new aws.S3({ region: "us-east-2" });
+const s3 = new aws.S3({
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID_PARTO,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_PARTO,
+  },
+  region: "us-east-2",
+});
 
 const upload = multer({
   storage: multerS3({
